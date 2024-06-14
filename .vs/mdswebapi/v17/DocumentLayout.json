@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\study\\TTTT\\projects\\mdswebapi\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\controllers\\medicinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\controllers\\medicinecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\repository\\medicinerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\repository\\medicinerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\projects\\mdswebapi\\mdswebapi\\mappers\\medicinemappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\mappers\\medicinemappers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\interfaces\\imedicinerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\interfaces\\imedicinerepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\projects\\mdswebapi\\mdswebapi\\dtos\\medicine\\afterupdatemedicinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\dtos\\medicine\\afterupdatemedicinedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AfterUpdateMedicineDto.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Dtos\\Medicine\\AfterUpdateMedicineDto.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Dtos\\Medicine\\AfterUpdateMedicineDto.cs",
+              "ToolTip": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Dtos\\Medicine\\AfterUpdateMedicineDto.cs",
+              "RelativeToolTip": "mdswebapi\\Dtos\\Medicine\\AfterUpdateMedicineDto.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T04:19:05.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MedicineMappers.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Mappers\\MedicineMappers.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Mappers\\MedicineMappers.cs",
+              "ToolTip": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Mappers\\MedicineMappers.cs",
+              "RelativeToolTip": "mdswebapi\\Mappers\\MedicineMappers.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAUwBoAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-14T04:08:49.368Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MedicineRepo.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Repository\\MedicineRepo.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Repository\\MedicineRepo.cs",
+              "ToolTip": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Repository\\MedicineRepo.cs",
+              "RelativeToolTip": "mdswebapi\\Repository\\MedicineRepo.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAqwC0AAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T05:10:06.515Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "IMedicineRepo.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Interfaces\\IMedicineRepo.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Interfaces\\IMedicineRepo.cs",
+              "ToolTip": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Interfaces\\IMedicineRepo.cs",
+              "RelativeToolTip": "mdswebapi\\Interfaces\\IMedicineRepo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-13T05:10:49.737Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MedicineController.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Controllers\\MedicineController.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Controllers\\MedicineController.cs",
+              "ToolTip": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\Controllers\\MedicineController.cs",
+              "RelativeToolTip": "mdswebapi\\Controllers\\MedicineController.cs",
+              "ViewState": "AQIAADcAAAAAAAAAAAAuwE0AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T23:57:12.847Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
