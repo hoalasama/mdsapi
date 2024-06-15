@@ -127,6 +127,22 @@
   },
   {
     "ContainingType": "mdswebapi.Controllers.MedicineController",
+    "Method": "Delete",
+    "RelativePath": "api/Medicine/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.MedicineController",
     "Method": "Create",
     "RelativePath": "api/Medicine/{pharId}",
     "HttpMethod": "POST",

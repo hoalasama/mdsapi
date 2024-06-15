@@ -74,5 +74,17 @@ namespace mdswebapi.Controllers
             }
             return Ok(medicine.ToMedicineDto1());
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var medicineModel = await _medicineRepo.DeleteAsync(id);
+            if (medicineModel == null)
+            {
+                return NotFound("Medicine does not exists");
+            }
+            return Ok(medicineModel);
+        }
     }
 }

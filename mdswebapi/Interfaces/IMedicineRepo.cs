@@ -8,5 +8,6 @@ namespace mdswebapi.Interfaces
         Task<Medicine?> GetByIdAsync(int id);
         Task<Medicine?> CreateAsync(Medicine medicineModel);
         Task<Medicine?> UpdateAsync(int id, Medicine medicineModel);
+        Task<Medicine?> DeleteAsync(int id);
     }
 }

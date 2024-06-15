@@ -19,6 +19,18 @@ namespace mdswebapi.Repository
             return medicineModel;
         }
 
+        public async Task<Medicine?> DeleteAsync(int id)
+        {
+            var medicineModel = await _context.Medicines.FirstOrDefaultAsync(x => x.MedId == id);
+            if (medicineModel == null)
+            {
+                return null;
+            }
+            _context.Medicines.Remove(medicineModel);
+            await _context.SaveChangesAsync();
+            return medicineModel;
+        }
+
         public async Task<List<Medicine>> GetAllAsync()
         {
             return await _context.Medicines.ToListAsync();

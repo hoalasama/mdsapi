@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\mdswebapi.csproj": {}
+    "D:\\study\\TTTT\\mdsapi\\mdswebapi\\mdswebapi.csproj": {}
   },
   "projects": {
-    "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\mdswebapi.csproj": {
+    "D:\\study\\TTTT\\mdsapi\\mdswebapi\\mdswebapi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\mdswebapi.csproj",
+        "projectUniqueName": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\mdswebapi.csproj",
         "projectName": "mdswebapi",
-        "projectPath": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\mdswebapi.csproj",
+        "projectPath": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\mdswebapi.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "D:\\study\\TTTT\\projects\\mdswebapi\\mdswebapi\\obj\\",
+        "outputPath": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,6 +45,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.6, )"
@@ -66,6 +70,10 @@
               "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
               "target": "Package",
               "version": "[8.0.6, )"
             },

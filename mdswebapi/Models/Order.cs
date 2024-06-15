@@ -11,9 +11,9 @@ public partial class Order
 
     public int? CustomerId { get; set; }
 
-    public DateOnly? OrderPlacedAt { get; set; }
+    public DateTime OrderPlacedAt { get; set; } = DateTime.Now;
 
-    public DateOnly? OrderDeliveredAt { get; set; }
+    public DateTime? OrderDeliveredAt { get; set; }
 
     public decimal? ShippingFees { get; set; }
 
