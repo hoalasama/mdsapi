@@ -1,6 +1,8 @@
-﻿using mdswebapi.Dtos.Category;
+﻿using mdswebapi.Attributes;
+using mdswebapi.Dtos.Category;
 using mdswebapi.Interfaces;
 using mdswebapi.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
@@ -38,6 +40,7 @@ namespace mdswebapi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateCategoryRequestDto categoryDto)
         {
             var categoryModel = categoryDto.CreateCategoryRequestDto();
@@ -47,6 +50,7 @@ namespace mdswebapi.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestDto categoryDto)
         {
             var categoryModel = await _categoryRepo.UpdateAsync(id, categoryDto);
@@ -60,6 +64,7 @@ namespace mdswebapi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var categoryModel = await _categoryRepo.DeleteAsync(id);

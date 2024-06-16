@@ -17,6 +17,6 @@ namespace mdswebapi.Dtos.Pharmacy
         public string? PharEmail { get; set; }
 
         public string? PharAddress { get; set; }
-        public List<MedicineDto> Medicines { get; set; }
+        public List<MedicineDto> Medicines { get; set; } = new List<MedicineDto>();
     }
 }

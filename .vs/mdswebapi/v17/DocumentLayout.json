@@ -7,8 +7,24 @@
       "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\mdsapi\\mdswebapi\\mdswebapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\mdswebapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\mdsapi\\mdswebapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\mdsapi\\mdswebapi\\interfaces\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\interfaces\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\mdsapi\\mdswebapi\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\services\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\mdsapi\\mdswebapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|d:\\study\\tttt\\mdsapi\\mdswebapi\\models\\mdsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9D8E93B3-4033-4C20-B41B-077CBDB41AA4}|mdswebapi\\mdswebapi.csproj|solutionrelative:mdswebapi\\models\\mdsdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,19 +34,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "mdswebapi.http",
-              "DocumentMoniker": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\mdswebapi.http",
-              "RelativeDocumentMoniker": "mdswebapi\\mdswebapi.http",
-              "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\mdswebapi.http",
-              "RelativeToolTip": "mdswebapi\\mdswebapi.http",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-06-15T09:33:41.364Z",
+              "DocumentIndex": 2,
+              "Title": "ITokenService.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Interfaces\\ITokenService.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Interfaces\\ITokenService.cs",
+              "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Interfaces\\ITokenService.cs",
+              "RelativeToolTip": "mdswebapi\\Interfaces\\ITokenService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T12:04:20.914Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Services\\TokenService.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Services\\TokenService.cs",
+              "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Services\\TokenService.cs",
+              "RelativeToolTip": "mdswebapi\\Services\\TokenService.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAA0wC8AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:54:22.825Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Controllers\\CategoryController.cs",
+              "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "mdswebapi\\Controllers\\CategoryController.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAowCoAAAAkAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T11:29:39.32Z",
               "EditorCaption": ""
             },
             {
@@ -41,9 +83,35 @@
               "RelativeDocumentMoniker": "mdswebapi\\Program.cs",
               "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Program.cs",
               "RelativeToolTip": "mdswebapi\\Program.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAAAGEAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-15T09:33:39.062Z",
+              "WhenOpened": "2024-06-16T11:19:10.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "mdsDbContext.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Models\\mdsDbContext.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Models\\mdsDbContext.cs",
+              "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Models\\mdsDbContext.cs",
+              "RelativeToolTip": "mdswebapi\\Models\\mdsDbContext.cs",
+              "ViewState": "AQIAAB4AAAAAAAAAAAAqwDkAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T09:44:20.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "mdswebapi\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\study\\TTTT\\mdsapi\\mdswebapi\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "mdswebapi\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAowE4AAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-16T09:36:00.311Z",
               "EditorCaption": ""
             }
           ]

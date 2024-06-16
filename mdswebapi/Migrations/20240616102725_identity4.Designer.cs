@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mdswebapi.Models;
 
@@ -11,9 +12,11 @@ using mdswebapi.Models;
 namespace mdswebapi.Migrations
 {
     [DbContext(typeof(mdsDbContext))]
-    partial class mdsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240616102725_identity4")]
+    partial class identity4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

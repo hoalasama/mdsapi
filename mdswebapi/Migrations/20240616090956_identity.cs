@@ -6,11 +6,57 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace mdswebapi.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class identity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    customerID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    customerName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    customerPhone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    customerEmail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    customerAddress = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    customerLogin = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    customerPassword = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__customer__B611CB9D99012085", x => x.customerID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "categories",
                 columns: table => new
@@ -23,24 +69,6 @@ namespace mdswebapi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK__categori__A88B4DC41691FD27", x => x.cateID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "customers",
-                columns: table => new
-                {
-                    customerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    customerName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    customerPhone = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    customerEmail = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    customerAddress = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    customerLogin = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    customerPassword = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK__customer__B611CB9D99012085", x => x.customerID);
                 });
 
             migrationBuilder.CreateTable(
@@ -81,8 +109,8 @@ namespace mdswebapi.Migrations
                     promoID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     promoName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    startDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    endDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    startDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    endDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     discountPercent = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -91,12 +119,118 @@ namespace mdswebapi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "customerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserLogins",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "customerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "customerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "customerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "cart",
                 columns: table => new
                 {
                     cartID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    customerID = table.Column<int>(type: "int", nullable: true)
+                    customerID = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -104,7 +238,7 @@ namespace mdswebapi.Migrations
                     table.ForeignKey(
                         name: "FK__cart__customerID__5EBF139D",
                         column: x => x.customerID,
-                        principalTable: "customers",
+                        principalTable: "AspNetUsers",
                         principalColumn: "customerID");
                 });
 
@@ -115,9 +249,9 @@ namespace mdswebapi.Migrations
                     orderID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     osID = table.Column<int>(type: "int", nullable: true),
-                    customerID = table.Column<int>(type: "int", nullable: true),
-                    orderPlacedAt = table.Column<DateOnly>(type: "date", nullable: true),
-                    orderDeliveredAt = table.Column<DateOnly>(type: "date", nullable: true),
+                    customerID = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    orderPlacedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    orderDeliveredAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     shippingFees = table.Column<decimal>(type: "decimal(18,0)", nullable: true)
                 },
                 constraints: table =>
@@ -126,7 +260,7 @@ namespace mdswebapi.Migrations
                     table.ForeignKey(
                         name: "FK__order__customerI__628FA481",
                         column: x => x.customerID,
-                        principalTable: "customers",
+                        principalTable: "AspNetUsers",
                         principalColumn: "customerID");
                     table.ForeignKey(
                         name: "FK__order__osID__619B8048",
@@ -221,7 +355,7 @@ namespace mdswebapi.Migrations
                 {
                     reviewID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    customerID = table.Column<int>(type: "int", nullable: true),
+                    customerID = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     medID = table.Column<int>(type: "int", nullable: true),
                     reviewContent = table.Column<string>(type: "text", nullable: true)
                 },
@@ -231,7 +365,7 @@ namespace mdswebapi.Migrations
                     table.ForeignKey(
                         name: "FK__reviews__custome__6754599E",
                         column: x => x.customerID,
-                        principalTable: "customers",
+                        principalTable: "AspNetUsers",
                         principalColumn: "customerID");
                     table.ForeignKey(
                         name: "FK__reviews__medID__66603565",
@@ -239,6 +373,45 @@ namespace mdswebapi.Migrations
                         principalTable: "medicines",
                         principalColumn: "medID");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetRoleClaims_RoleId",
+                table: "AspNetRoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                table: "AspNetRoles",
+                column: "NormalizedName",
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserClaims_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserLogins_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_RoleId",
+                table: "AspNetUserRoles",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_cart_customerID",
@@ -300,6 +473,21 @@ namespace mdswebapi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AspNetRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "cartDetail");
 
             migrationBuilder.DropTable(
@@ -312,6 +500,9 @@ namespace mdswebapi.Migrations
                 name: "reviews");
 
             migrationBuilder.DropTable(
+                name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
                 name: "cart");
 
             migrationBuilder.DropTable(
@@ -321,7 +512,7 @@ namespace mdswebapi.Migrations
                 name: "medicines");
 
             migrationBuilder.DropTable(
-                name: "customers");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "orderStatus");

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mdswebapi.Models;
 
-public partial class mdsDbContext : DbContext
+public partial class mdsDbContext : IdentityDbContext<Customer>
 {
     public mdsDbContext(DbContextOptions<mdsDbContext> options)
         : base(options)
@@ -36,9 +36,29 @@ public partial class mdsDbContext : DbContext
     public virtual DbSet<Review> Reviews { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-IGU4RUNK\\SQLEXPRESS;Database=mdsapi1;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-IGU4RUNK\\SQLEXPRESS;Database=mdsapi2;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        List<IdentityRole> roles = new List<IdentityRole>
+        {
+            new IdentityRole
+            {
+                Name = "Admin",
+                NormalizedName = "ADMIN",
+            },
+            new IdentityRole
+            {
+                Name = "Phar",
+                NormalizedName = "PHAR",
+            },
+            new IdentityRole
+            {
+                Name = "User",
+                NormalizedName = "USER",
+            },
+        };
+        modelBuilder.Entity<IdentityRole>().HasData(roles);
+
         modelBuilder.Entity<Cart>(entity =>
         {
             entity.HasKey(e => e.CartId).HasName("PK__cart__415B03D8CF0AF4A4");
@@ -90,11 +110,11 @@ public partial class mdsDbContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__customer__B611CB9D99012085");
+            entity.HasKey(e => e.Id).HasName("PK__customer__B611CB9D99012085");
 
             entity.ToTable("customers");
 
-            entity.Property(e => e.CustomerId).HasColumnName("customerID");
+            entity.Property(e => e.Id).HasColumnName("customerID");
             entity.Property(e => e.CustomerAddress)
                 .HasMaxLength(255)
                 .HasColumnName("customerAddress");
