@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 
 namespace mdswebapi.Models;
 
-public partial class Customer
+public partial class Customer : IdentityUser
 {
-    public int CustomerId { get; set; }
 
     public string? CustomerName { get; set; }
 
@@ -18,6 +18,9 @@ public partial class Customer
     public string? CustomerLogin { get; set; }
 
     public string? CustomerPassword { get; set; }
+    public int? PharmacyId { get; set; }
+
+    public virtual Pharmacy? Pharmacy { get; set; }
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 

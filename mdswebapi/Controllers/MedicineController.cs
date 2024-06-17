@@ -2,6 +2,7 @@
 using mdswebapi.Interfaces;
 using mdswebapi.Mappers;
 using mdswebapi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -45,6 +46,7 @@ namespace mdswebapi.Controllers
         }
 
         [HttpPost("{pharId}")]
+        [Authorize(Roles = "Admin, Phar")]
         public async Task<IActionResult> Create([FromRoute] int pharId, [FromBody] CreateMedicineDto medicineDto)
         {
             if(!await _pharmacyRepo.PharmacyExists(pharId))
@@ -61,6 +63,7 @@ namespace mdswebapi.Controllers
         }
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin, Phar")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateMedicineRequestDto updateDto)
         {
             if (!await _categoryRepo.CategoryExists(updateDto.CateId))
@@ -76,6 +79,7 @@ namespace mdswebapi.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin, Phar")]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

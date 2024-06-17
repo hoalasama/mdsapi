@@ -773,3 +773,4 @@ D:\study\TTTT\mdsapi\mdswebapi\obj\Debug\net8.0\refint\mdswebapi.dll
 D:\study\TTTT\mdsapi\mdswebapi\obj\Debug\net8.0\mdswebapi.pdb
 D:\study\TTTT\mdsapi\mdswebapi\obj\Debug\net8.0\mdswebapi.genruntimeconfig.cache
 D:\study\TTTT\mdsapi\mdswebapi\obj\Debug\net8.0\ref\mdswebapi.dll
+D:\study\TTTT\mdsapi\mdswebapi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

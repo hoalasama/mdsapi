@@ -1,6 +1,7 @@
 ﻿using mdswebapi.Dtos.Promotion;
 using mdswebapi.Interfaces;
 using mdswebapi.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,7 @@ namespace mdswebapi.Controllers
             return Ok(promotion.ToPromotionDto());
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreatePromotionRequestDto promtionDto)
         {
             var promotionModel = promtionDto.CreatePromotionRequestDto();
@@ -45,6 +47,7 @@ namespace mdswebapi.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdatePromotionRequestDto promotionDto)
         {
             var promotionModel = await _promotionRepo.UpdateAsync(id, promotionDto);
@@ -53,6 +56,7 @@ namespace mdswebapi.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
