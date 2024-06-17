@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using mdswebapi.Models;
 
@@ -11,9 +12,11 @@ using mdswebapi.Models;
 namespace mdswebapi.Migrations
 {
     [DbContext(typeof(mdsDbContext))]
-    partial class mdsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240617062241_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,19 +54,19 @@ namespace mdswebapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "417effc9-307a-41e5-837e-8bd4afd44678",
+                            Id = "107fd690-95d2-4122-b998-84b19a162cda",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d5195425-7e7c-4de3-b69d-a2d369e1dbb0",
+                            Id = "1abffd07-1a14-42fd-a212-c4762ced4889",
                             Name = "Phar",
                             NormalizedName = "PHAR"
                         },
                         new
                         {
-                            Id = "5b3b4291-6de4-4b72-b112-d5cb09c5c055",
+                            Id = "4b3350bb-5abf-4154-9af0-878008072772",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -510,9 +513,6 @@ namespace mdswebapi.Migrations
                         .HasColumnName("pharID");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PharId"));
-
-                    b.Property<string>("CustomerId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PharAddress")
                         .HasMaxLength(255)

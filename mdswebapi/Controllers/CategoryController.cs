@@ -50,7 +50,7 @@ namespace mdswebapi.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCategoryRequestDto categoryDto)
         {
             var categoryModel = await _categoryRepo.UpdateAsync(id, categoryDto);
@@ -64,7 +64,7 @@ namespace mdswebapi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var categoryModel = await _categoryRepo.DeleteAsync(id);

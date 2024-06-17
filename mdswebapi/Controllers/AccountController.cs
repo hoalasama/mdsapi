@@ -21,6 +21,27 @@ namespace mdswebapi.Controllers
             _tokenService = tokenService;
             _signinManager = signInManager;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _userManager.Users.ToListAsync();
+            var userDtos = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                userDtos.Add(new UserDto
+                {
+                    Id = user.Id,
+                    UserName = user.UserName,
+                    Email = user.Email,
+                    Roles = roles
+                });
+            }
+
+            return Ok(userDtos);
+        }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
@@ -92,6 +113,13 @@ namespace mdswebapi.Controllers
             {
                 return StatusCode(500, e);
             }
+        }
+        public class UserDto
+        {
+            public string Id { get; set; }
+            public string UserName { get; set; }
+            public string Email { get; set; }
+            public IList<string> Roles { get; set; }
         }
     }
 }

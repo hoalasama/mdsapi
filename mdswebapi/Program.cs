@@ -95,6 +95,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminPolicy", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("PharPolicy", policy => policy.RequireRole("Phar"));
 });
 
 builder.Services.AddScoped<IPharmacyRepo, PharmacyRepo>();

@@ -39,7 +39,7 @@ public partial class mdsDbContext : IdentityDbContext<Customer>
         => optionsBuilder.UseSqlServer("Server=LAPTOP-IGU4RUNK\\SQLEXPRESS;Database=mdsapi2;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        List<IdentityRole> roles = new List<IdentityRole>
+        /*List<IdentityRole> roles = new List<IdentityRole>
         {
             new IdentityRole
             {
@@ -57,7 +57,7 @@ public partial class mdsDbContext : IdentityDbContext<Customer>
                 NormalizedName = "USER",
             },
         };
-        modelBuilder.Entity<IdentityRole>().HasData(roles);
+        modelBuilder.Entity<IdentityRole>().HasData(roles);*/
 
         modelBuilder.Entity<Cart>(entity =>
         {
@@ -133,6 +133,9 @@ public partial class mdsDbContext : IdentityDbContext<Customer>
             entity.Property(e => e.CustomerPhone)
                 .HasMaxLength(255)
                 .HasColumnName("customerPhone");
+            entity.HasOne(c => c.Pharmacy)
+            .WithOne(p => p.Customer)
+            .HasForeignKey<Customer>(c => c.PharmacyId);
         });
 
         modelBuilder.Entity<Medicine>(entity =>
@@ -239,15 +242,9 @@ public partial class mdsDbContext : IdentityDbContext<Customer>
             entity.Property(e => e.PharEmail)
                 .HasMaxLength(255)
                 .HasColumnName("pharEmail");
-            entity.Property(e => e.PharLogin)
-                .HasMaxLength(255)
-                .HasColumnName("pharLogin");
             entity.Property(e => e.PharName)
                 .HasMaxLength(255)
                 .HasColumnName("pharName");
-            entity.Property(e => e.PharPass)
-                .HasMaxLength(255)
-                .HasColumnName("pharPass");
             entity.Property(e => e.PharPhone)
                 .HasMaxLength(255)
                 .HasColumnName("pharPhone");

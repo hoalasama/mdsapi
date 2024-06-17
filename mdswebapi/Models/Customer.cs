@@ -18,6 +18,9 @@ public partial class Customer : IdentityUser
     public string? CustomerLogin { get; set; }
 
     public string? CustomerPassword { get; set; }
+    public int? PharmacyId { get; set; }
+
+    public virtual Pharmacy? Pharmacy { get; set; }
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 

@@ -25,7 +25,8 @@ namespace mdswebapi.Services
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Email, customer.Email),
-                new Claim(JwtRegisteredClaimNames.GivenName, customer.UserName)
+                new Claim(JwtRegisteredClaimNames.GivenName, customer.UserName),
+                new Claim(ClaimTypes.NameIdentifier, customer.Id)
             };
 
             var roles = await _userManager.GetRolesAsync(customer);

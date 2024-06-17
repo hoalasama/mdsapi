@@ -11,12 +11,11 @@ namespace mdswebapi.Mappers
             return new PharmacyDto
             {
                 PharId = pharmacyModel.PharId,
-                PharLogin = pharmacyModel.PharLogin,
-                PharPass = pharmacyModel.PharPass,
                 PharName = pharmacyModel.PharName,
                 PharPhone = pharmacyModel.PharPhone,
                 PharEmail = pharmacyModel.PharEmail,
                 PharAddress = pharmacyModel.PharAddress,
+                CustomerId = pharmacyModel.CustomerId,
                 Medicines = pharmacyModel.Medicines.Select(c => c.ToMedicineDto()).ToList(),
             };
         }
@@ -25,12 +24,11 @@ namespace mdswebapi.Mappers
         {
             return new Pharmacy
             {
-                PharLogin = PharmacyDto.PharLogin,
-                PharPass = PharmacyDto.PharPass,
                 PharName = PharmacyDto.PharName,
                 PharPhone = PharmacyDto.PharPhone,
                 PharEmail = PharmacyDto.PharEmail,
                 PharAddress = PharmacyDto.PharAddress,
+                CustomerId = PharmacyDto.CustomerId,
             };
         }
     }
