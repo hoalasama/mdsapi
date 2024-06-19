@@ -39,7 +39,7 @@ namespace mdswebapi.Repository
             return await _context.Pharmacies.Include(c => c.Medicines).ToListAsync();
         }
 
-        public async Task<Pharmacy?> GetByIdAsync(int id)
+        public async Task<Pharmacy?> GetByIdAsync(int? id)
         {
             return await _context.Pharmacies.Include(c => c.Medicines).FirstOrDefaultAsync(i => i.PharId == id);
         }

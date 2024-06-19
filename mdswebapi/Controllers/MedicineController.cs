@@ -1,4 +1,5 @@
 ﻿using mdswebapi.Dtos.Medicine;
+using mdswebapi.Dtos.Pharmacy;
 using mdswebapi.Interfaces;
 using mdswebapi.Mappers;
 using mdswebapi.Models;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace mdswebapi.Controllers
 {
@@ -57,6 +59,19 @@ namespace mdswebapi.Controllers
             {
                 return BadRequest("Category does not exist");
             }
+            var pharmacyModel = await _pharmacyRepo.GetByIdAsync(pharId);
+            if (pharmacyModel == null)
+            {
+                return NotFound("Pharmacy not exists");
+            }
+            var id = pharmacyModel.CustomerId;
+            var userId = User.FindFirstValue("nameid");
+            var nameId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!User.IsInRole("Admin") && id != nameId)
+            {
+                return BadRequest("You do not have permission to create this medicine.");
+            }
+
             var medicineModel = medicineDto.ToMedicineFromCreate(pharId);
             await _medicineRepo.CreateAsync(medicineModel);
             return CreatedAtAction(nameof(GetById), new { id = medicineModel.MedId}, medicineModel.ToMedicineDto());
@@ -70,6 +85,25 @@ namespace mdswebapi.Controllers
             {
                 return BadRequest("Category does not exist");
             }
+            var med = await _medicineRepo.GetByIdAsync(id);
+            if (med == null)
+            {
+                return NotFound("not found medicine");
+            }
+            var pharId = med.PharId;
+            var pharmacyModel = await _pharmacyRepo.GetByIdAsync(pharId);
+            if (pharmacyModel == null)
+            {
+                return NotFound("Pharmacy not exists");   
+            }
+            var pharuser = pharmacyModel.CustomerId;
+            var userId = User.FindFirstValue("nameid");
+            var nameId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!User.IsInRole("Admin") && pharuser != nameId)
+            {
+                return BadRequest("You do not have permission to update this medicine.");
+            }
+
             var medicine = await _medicineRepo.UpdateAsync(id, updateDto.ToMedicineFromUpdate());
             if (medicine == null)
             {
@@ -83,6 +117,24 @@ namespace mdswebapi.Controllers
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            var med = await _medicineRepo.GetByIdAsync(id);
+            if (med == null)
+            {
+                return NotFound("not found medicine");
+            }
+            var pharId = med.PharId;
+            var pharmacyModel = await _pharmacyRepo.GetByIdAsync(pharId);
+            if (pharmacyModel == null)
+            {
+                return NotFound("Pharmacy not exists");
+            }
+            var pharuser = pharmacyModel.CustomerId;
+            var userId = User.FindFirstValue("nameid");
+            var nameId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            if (!User.IsInRole("Admin") && pharuser != nameId)
+            {
+                return BadRequest("You do not have permission to delete this medicine.");
+            }
             var medicineModel = await _medicineRepo.DeleteAsync(id);
             if (medicineModel == null)
             {

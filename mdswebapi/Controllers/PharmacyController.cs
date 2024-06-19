@@ -50,7 +50,7 @@ namespace mdswebapi.Controllers
         [HttpPost]
         [Route("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromRoute] string? id,[FromBody] CreatePharmacyRequestDto PharmacyDto)
+        public async Task<IActionResult> Create([FromRoute] string id,[FromBody] CreatePharmacyRequestDto PharmacyDto)
         {
             var pharmacyModel = PharmacyDto.ToPharmacyFromCreateDto();
             pharmacyModel.CustomerId = id;
@@ -95,6 +95,10 @@ namespace mdswebapi.Controllers
             }
 
             var updatedPharmacy = await _pharmacyRepo.UpdateAsync(id, updateDto);
+            if (updatedPharmacy == null)
+            {
+                return NotFound("Something went wrong");
+            }
 
             return Ok(updatedPharmacy.ToPharmacyDto());
         }

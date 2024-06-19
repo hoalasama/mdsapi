@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("mdswebapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+168c1afc32158940bea1668137ab2e0cd3bfede4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b52a9e49cd9eb11db5bd57c488b08b01e98a0730")]
 [assembly: System.Reflection.AssemblyProductAttribute("mdswebapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("mdswebapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
