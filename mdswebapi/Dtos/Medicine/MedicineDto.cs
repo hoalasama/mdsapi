@@ -1,4 +1,6 @@
-﻿namespace mdswebapi.Dtos.Medicine
+﻿using mdswebapi.Dtos.Review;
+
+namespace mdswebapi.Dtos.Medicine
 {
     public class MedicineDto
     {
@@ -17,5 +19,6 @@
         public string? MedPicture { get; set; }
         public int? CateId { get; set; }
         public int? PharId { get; set; }
+        public List<ReviewDto> Reivews { get; set; } = new List<ReviewDto>();
     }
 }

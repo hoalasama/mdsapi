@@ -33,7 +33,7 @@ namespace mdswebapi.Repository
 
         public async Task<List<Medicine>> GetAllAsync()
         {
-            return await _context.Medicines.ToListAsync();
+            return await _context.Medicines.Include(c => c.Reviews).ToListAsync();
         }
 
         public async Task<Medicine?> GetByIdAsync(int id)
