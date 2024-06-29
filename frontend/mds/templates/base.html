@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Site{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body style="background-color: #edf0f3;overflow-x: hidden;">
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #3e84e9; ">
+        <a class="navbar-brand" href="{% url 'index' %}" style="color: white;">MDS</a>
+        <div class="collapse navbar-collapse">
+            <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_medicine' %}" style="margin-left: 500px;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+            </form>
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item" style="margin-right: 300px;">
+                    <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_medicine' %}">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </li> -->
+                
+                {% if user.is_authenticated %}
+                    {% if request.session.role != 'Admin' and request.session.role != 'Phar' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'orders_view' %}" style="color: white;">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'cart' %}" style="color: white;">Cart</a>
+                        </li>
+                    {% endif %}
+                    {% if request.session.role == 'Admin' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'manage_pharmacy' %}" style="color: white;">Manage Pharmacy</a>
+                        </li>
+                    {% endif %}
+                    {% if request.session.role == 'Phar' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'pharmacy_medicines' %}" style="color: white;">Manage Medicine</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" style="color: white;">{{ request.session.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}" style="color: white;">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}" style="color: white;">Login</a>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

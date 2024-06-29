@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Edit Medicine</h2>
+    <form id="edit-medicine-form" action="{% url 'edit_medicine' medicine.medId %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="medId" id="medId" value="{{ medicine.medId }}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="medName">Medicine Name:</label>
+                <input type="text" name="medName" id="medName" class="form-control" placeholder="Enter medicine name" value="{{ medicine.medName }}" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="medPrice">Price:</label>
+                <input type="number" name="medPrice" id="medPrice" class="form-control" placeholder="Enter price" value="{{ medicine.medPrice }}" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="medDesc">Description:</label>
+            <textarea name="medDesc" id="medDesc" class="form-control" rows="4" placeholder="Enter description" required>{{ medicine.medDesc }}</textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="medDiscount">Discount (%):</label>
+                <input type="number" name="medDiscount" id="medDiscount" class="form-control" placeholder="Enter discount percentage" value="{{ medicine.medDiscount }}">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="medRemain">Remaining Quantity:</label>
+                <input type="number" name="medRemain" id="medRemain" class="form-control" placeholder="Enter remaining quantity" value="{{ medicine.medRemain }}" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="cateId">Category:</label>
+                <select name="cateId" id="cateId" class="form-control" required>
+                    {% for category in categories %}
+                        <option value="{{ category.cateId }}" {% if category.cateId == medicine.cateId %}selected{% endif %}>{{ category.cateName }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="medPicture">Picture:</label>
+            {% if medicine.medPicture %}
+                <div>
+                    <img src="{{ medicine.medPicture }}" alt="{{ medicine.medName }}" class="img-thumbnail" style="max-height: 200px;">
+                </div>
+                <input type="text" name="medPic" id="medPic" class="form-control" value="{{ medicine.medPicture }}" required style="display: none;">
+            {% endif %}
+            <input type="file" name="medPicture" id="medPicture" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="{% url 'pharmacy_medicines' %}" class="btn btn-primary btn-md" role="button" style="margin-left: 20px;">My Medicines</a>
+    </form>
+</div>
+{% endblock %}

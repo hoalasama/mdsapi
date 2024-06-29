@@ -1,0 +1,23 @@
+.carousel-inner img {
+    width: 100%;
+    height: auto;
+}
+
+.btn-primary, .btn-secondary {
+    margin-right: 10px;
+}
+
+h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container {
+    margin-top: 20px;
+}
+body{
+    background-color: #edf0f3;
+}
+.row{
+    background-color: #edf0f3;
+}

@@ -47,6 +47,7 @@ namespace mdswebapi.Controllers
         public async Task<IActionResult> GetById([FromRoute] string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            /*var user = await _userManager.FindByNameAsync(id);*/
             var userDtos = new List<UserDto>();
             if (user == null)
             {

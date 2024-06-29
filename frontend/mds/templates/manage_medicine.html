@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Manage Medicine</h2>
+    <form id="medicine-form" action="{% url 'manage_medicine' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="medId" id="medId">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="medName">Medicine Name:</label>
+                <input type="text" name="medName" id="medName" class="form-control" placeholder="Enter medicine name" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="medPrice">Price:</label>
+                <input type="number" name="medPrice" id="medPrice" class="form-control" placeholder="Enter price" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="medDesc">Description:</label>
+            <textarea name="medDesc" id="medDesc" class="form-control" rows="4" placeholder="Enter description" required></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="medDiscount">Discount (%):</label>
+                <input type="number" name="medDiscount" id="medDiscount" class="form-control" placeholder="Enter discount percentage">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="medRemain">Remaining Quantity:</label>
+                <input type="number" name="medRemain" id="medRemain" class="form-control" placeholder="Enter remaining quantity" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="cateId">Category:</label>
+                <select name="cateId" id="cateId" class="form-control" required>
+                    {% for category in categories %}
+                        <option value="{{ category.cateId }}">{{ category.cateName }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="medPicture">Picture:</label>
+            <input type="file" name="medPicture" id="medPicture" class="form-control-file">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Medicine</button>
+        <a href="{% url 'pharmacy_medicines' %}" class="btn btn-primary btn-md" role="button" style="margin-left: 20px;">My medicine</a>
+    </form>
+</div>
+
+<script type="application/json" id="medicines-data">
+    {{ medicines|json_script:"medicines_data" }}
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const medicines = JSON.parse(document.getElementById('medicines-data').textContent);
+        const editButtons = document.querySelectorAll('.edit-medicine');
+        editButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+                const medId = this.getAttribute('data-med-id');
+                const med = medicines.find(m => m.medId == medId);
+                if (med) {
+                    document.getElementById('medId').value = med.medId;
+                    document.getElementById('medName').value = med.medName;
+                    document.getElementById('medDesc').value = med.medDesc;
+                    document.getElementById('medDiscount').value = med.medDiscount;
+                    document.getElementById('medRemain').value = med.medRemain;
+                    document.getElementById('medPrice').value = med.medPrice;
+                    document.getElementById('cateId').value = med.cateId;
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

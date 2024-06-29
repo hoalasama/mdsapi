@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h1>Search Results for "{{ query }}"</h1>
+{% if medicines %}
+<div class="col-md-12">
+    <div id="medicines-container" class="row">
+        {% for medicine in medicines %}
+            <div class="card mb-3 col-md-3" data-category-id="{{ medicine.cateId }}" style="margin-right: 0;">
+                <a href="{% url 'medicine_detail' medicine.medId %}">
+                    <img src="{{ medicine.medPicture }}" class="card-img-top" alt="{{ medicine.medName }}" style="margin-top: 10px; width: 250px; height: 150px;">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'medicine_detail' medicine.medId %}">{{ medicine.medName }}</a>
+                    </h5>
+                    <!-- <p class="card-text">{{ medicine.medDesc }}</p> -->
+                    <p class="card-text">Price: {{ medicine.medPrice|floatformat:"0"|intcomma }}₫</p>
+                    <p class="card-text">Remaining: {{ medicine.medRemain }}</p>
+                    {% if user.is_authenticated %}
+                    {% if request.session.role != 'Admin' and request.session.role != 'Phar' %}
+                    <form method="post" action="{% url 'add_to_cart_from_medicine' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="med_id" value="{{ medicine.medId }}">
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+    <p>No medicines found matching your search criteria.</p>
+{% endif %}
+{% endblock %}
