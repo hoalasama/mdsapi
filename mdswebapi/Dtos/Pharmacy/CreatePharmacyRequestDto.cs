@@ -10,6 +10,6 @@
         public string? PharEmail { get; set; }
 
         public string? PharAddress { get; set; }
-        public string? CustomerId { get; set; }
+        /*public string? CustomerId { get; set; }*/
     }
 }

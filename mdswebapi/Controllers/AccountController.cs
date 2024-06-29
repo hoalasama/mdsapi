@@ -1,10 +1,12 @@
 ﻿using mdswebapi.Dtos.Account;
 using mdswebapi.Interfaces;
 using mdswebapi.Models;
+using mdswebapi.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace mdswebapi.Controllers
 {
@@ -39,6 +41,26 @@ namespace mdswebapi.Controllers
                 });
             }
 
+            return Ok(userDtos);
+        }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById([FromRoute] string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            /*var user = await _userManager.FindByNameAsync(id);*/
+            var userDtos = new List<UserDto>();
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var roles = await _userManager.GetRolesAsync(user);
+            userDtos.Add(new UserDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                Roles = roles
+            });
             return Ok(userDtos);
         }
 

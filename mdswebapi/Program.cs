@@ -102,6 +102,7 @@ builder.Services.AddScoped<IPharmacyRepo, PharmacyRepo>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<IPromotionRepo, PromotionRepo>();
 builder.Services.AddScoped<IMedicineRepo, MedicineRepo>();
+builder.Services.AddScoped<IReviewRepo, ReviewRepo>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 

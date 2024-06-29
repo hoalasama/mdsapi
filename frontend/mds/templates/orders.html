@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load humanize %} 
+{% block content %}
+    <style>
+        .order-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .order-header {
+            cursor: pointer;
+        }
+
+        .order-details {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .order-details ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .order-details li {
+            margin-bottom: 10px;
+        }
+
+        .total-price {
+            font-weight: bold;
+        }
+    </style>
+
+    <script>
+        function toggleDetails(orderId) {
+            var details = document.getElementById('details-' + orderId);
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        }
+    </script>
+
+    <h1>Your Orders</h1>
+
+    {% if orders %}
+        <div>
+            {% for order in orders %}
+                <div class="order-box">
+                    <div class="order-header" onclick="toggleDetails('{{ order.orderId }}')">
+                        <h2>Order ID: {{ order.orderId }}</h2>
+                        <p>Status: {{ order.os.osDesc }}</p>
+                        <p>Placed At: {{ order.orderPlacedAt }}</p>
+                        <p>Delivered At: {{ order.orderDeliveredAt }}</p>
+                        <p class="total-price">Total Price: {{ order.totalPrice|floatformat:"0"|intcomma  }}</p>
+                    </div>
+                    <div class="order-details" id="details-{{ order.orderId }}">
+                        <h3>Items:</h3>
+                        <ul>
+                            {% for item in order.orderItems %}
+                                <li>
+                                    <p>Medicine: {{ item.med.medName }}</p>
+                                    <p>Quantity: {{ item.itemQuantity }}</p>
+                                    <p>Price: {{ item.med.medPrice|floatformat:"0"|intcomma  }}</p>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No orders found.</p>
+    {% endif %}
+{% endblock %}

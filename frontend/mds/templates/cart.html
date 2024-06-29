@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <!-- <h2 class="mb-4">{{ request.session.username }}'s Cart</h2> -->
+            <ul class="list-group mb-3">
+                {% for item in cart.cartDetails %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ item.med.medPicture }}" alt="{{ item.med.medName }}" class="img-thumbnail" style="width: 100px; height: 100px;">
+                        <div class="ms-3"  style="margin-left: 20px;">
+                            <h6>{{ item.med.medName }}</h6>
+                            <small>{{ item.med.description }}</small>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <span class="me-3" style="margin-right: 20px;">{{ item.med.medPrice }}đ</span>
+                        <form method="post" action="{% url 'edit_cart_item' item.cdId %}"  style="margin-right: 20px;">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="hidden" name="med_id" value="{{ item.med.medId }}">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
+                                <input type="text" class="form-control text-center" name="quantity" value="{{ item.quantity }}" style="width: 50px;">
+                                <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
+                            </div>
+                        </form>
+                        <a href="{% url 'delete_cart_item' item.cdId %}" class="btn btn-danger btn-sm ms-3">X</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h5 class="card-title">Áp dụng ưu đãi để được giảm giá</h5> -->
+                    <p class="card-text">Tổng tiền: <span>{{ cart.total }}đ</span></p>
+                    <p class="card-text">Giảm giá trực tiếp: <span>0đ</span></p>
+                    <!-- <p class="card-text">Giảm giá voucher: <span>0đ</span></p> -->
+                    <h5 class="card-title">Thành tiền: <span>{{ cart.total }}đ</span></h5>
+                    <form method="post" action="{% url 'place_order' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-block">Mua hàng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateQuantity(button, increment) {
+        var input = button.closest('.input-group').querySelector('input[name="quantity"]');
+        var currentQuantity = parseInt(input.value);
+        var newQuantity = currentQuantity + increment;
+        if (newQuantity > 0) {
+            input.value = newQuantity;
+            button.closest('form').submit();
+        }
+    }
+</script>
+{% endblock %}

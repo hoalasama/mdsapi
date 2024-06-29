@@ -11,6 +11,22 @@
   },
   {
     "ContainingType": "mdswebapi.Controllers.AccountController",
+    "Method": "GetById",
+    "RelativePath": "api/account/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.AccountController",
     "Method": "Login",
     "RelativePath": "api/account/login",
     "HttpMethod": "POST",
@@ -36,6 +52,70 @@
       {
         "Name": "registerDto",
         "Type": "mdswebapi.Dtos.Account.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.CartController",
+    "Method": "GetCart",
+    "RelativePath": "api/Cart/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.CartController",
+    "Method": "AddToCart",
+    "RelativePath": "api/Cart/add",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "mdswebapi.Dtos.Cart.AddCartDetailDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.CartController",
+    "Method": "DeleteCartItem",
+    "RelativePath": "api/Cart/delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "mdswebapi.Dtos.Cart.DeleteCartDetailDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.CartController",
+    "Method": "EditCartItem",
+    "RelativePath": "api/Cart/edit",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "mdswebapi.Dtos.Cart.EditCartDetailDto",
         "IsRequired": true
       }
     ],
@@ -193,12 +273,81 @@
     "Parameters": [
       {
         "Name": "pharId",
-        "Type": "System.Int32",
+        "Type": "System.String",
         "IsRequired": true
       },
       {
         "Name": "medicineDto",
         "Type": "mdswebapi.Dtos.Medicine.CreateMedicineDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.MedicineController",
+    "Method": "SearchMedicines",
+    "RelativePath": "api/Medicine/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.OrderController",
+    "Method": "PlaceOrder",
+    "RelativePath": "api/Order/placeorder/{customerId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.OrderController",
+    "Method": "UpdateShippingStatus",
+    "RelativePath": "api/Order/updateshippingstatus/{orderId}/{statusId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "orderId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "statusId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.OrderController",
+    "Method": "ViewOrders",
+    "RelativePath": "api/Order/vieworders/{customerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "customerId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],
@@ -356,6 +505,48 @@
     "Method": "Delete",
     "RelativePath": "api/Promotion/{id}",
     "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.ReviewController",
+    "Method": "GetAll",
+    "RelativePath": "api/Review",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.ReviewController",
+    "Method": "Create",
+    "RelativePath": "api/Review",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "reviewDto",
+        "Type": "mdswebapi.Dtos.Review.CreateReviewDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.ReviewController",
+    "Method": "GetById",
+    "RelativePath": "api/Review/{id}",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [

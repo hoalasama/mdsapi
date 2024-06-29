@@ -28,7 +28,7 @@ namespace mdswebapi.Mappers
                 PharPhone = PharmacyDto.PharPhone,
                 PharEmail = PharmacyDto.PharEmail,
                 PharAddress = PharmacyDto.PharAddress,
-                CustomerId = PharmacyDto.CustomerId,
+                /*CustomerId = PharmacyDto.CustomerId,*/
             };
         }
     }

@@ -19,6 +19,7 @@ namespace mdswebapi.Mappers
                 MedRemain = medicineModel.MedRemain,
                 CateId = medicineModel.CateId,
                 PharId = medicineModel.PharId,
+                Reivews = medicineModel.Reviews.Select(c => c.ToReviewDto()).ToList(),
             };
         }
 

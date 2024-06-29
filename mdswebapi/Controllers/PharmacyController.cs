@@ -1,4 +1,5 @@
-﻿using mdswebapi.Dtos.Pharmacy;
+﻿using mdswebapi.Dtos.Account;
+using mdswebapi.Dtos.Pharmacy;
 using mdswebapi.Interfaces;
 using mdswebapi.Mappers;
 using mdswebapi.Models;
@@ -19,11 +20,13 @@ namespace mdswebapi.Controllers
         private readonly mdsDbContext _context;
         private readonly IPharmacyRepo _pharmacyRepo;
         private readonly UserManager<Customer> _userManager;
-        public PharmacyController(mdsDbContext context, IPharmacyRepo pharmacyRepo, UserManager<Customer> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public PharmacyController(mdsDbContext context, IPharmacyRepo pharmacyRepo, UserManager<Customer> userManager, RoleManager<IdentityRole> roleManager)
         {
             _pharmacyRepo = pharmacyRepo;
             _context = context;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -50,7 +53,7 @@ namespace mdswebapi.Controllers
         [HttpPost]
         [Route("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Create([FromRoute] string? id,[FromBody] CreatePharmacyRequestDto PharmacyDto)
+        public async Task<IActionResult> Create([FromRoute] string id,[FromBody] CreatePharmacyRequestDto PharmacyDto)
         {
             var pharmacyModel = PharmacyDto.ToPharmacyFromCreateDto();
             pharmacyModel.CustomerId = id;
@@ -65,6 +68,10 @@ namespace mdswebapi.Controllers
             user.PharmacyId = pharmacyModel.PharId;
             pharmacyModel.CustomerId = id;
             await _userManager.UpdateAsync(user);
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+            var addResult = await _userManager.AddToRoleAsync(user, "Phar");
 
             return CreatedAtAction(nameof(GetById), new { id = pharmacyModel.PharId }, pharmacyModel.ToPharmacyDto());
         }
@@ -95,6 +102,10 @@ namespace mdswebapi.Controllers
             }
 
             var updatedPharmacy = await _pharmacyRepo.UpdateAsync(id, updateDto);
+            if (updatedPharmacy == null)
+            {
+                return NotFound("Something went wrong");
+            }
 
             return Ok(updatedPharmacy.ToPharmacyDto());
         }

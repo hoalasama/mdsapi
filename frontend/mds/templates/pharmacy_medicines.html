@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">My Medicines</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Discount</th>
+                <th>Remaining</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for medicine in medicines %}
+                <tr>
+                    <td>{{ medicine.medName }}</td>
+                    <td>{{ medicine.medDesc }}</td>
+                    <td>{{ medicine.medDiscount }}%</td>
+                    <td>{{ medicine.medRemain }}</td>
+                    <td>{{ medicine.medPrice }} VND</td>
+                    <td>
+                        <a href="{% url 'edit_medicine' medicine.medId %}" class="btn btn-sm btn-primary">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="container">
+        <a href="{% url 'manage_medicine' %}" class="btn btn-primary btn-md" role="button">Add new medicne</a>
+    </div>
+</div>
+{% endblock %}
