@@ -27,4 +27,6 @@ public partial class Customer : IdentityUser
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public virtual ICollection<Chat> SentMessages { get; set; } = new List<Chat>();
+    public virtual ICollection<Chat> ReceivedMessages { get; set; } = new List<Chat>();
 }

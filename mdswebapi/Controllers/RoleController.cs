@@ -8,7 +8,7 @@ using mdswebapi.Dtos.Account;
 
 namespace mdswebapi.Controllers
 {
-    [Authorize]
+    /*[Authorize(Roles = "Admin")]*/
     [ApiController]
     [Route("api/Role")]
     public class RoleManagementController : ControllerBase
@@ -52,5 +52,36 @@ namespace mdswebapi.Controllers
 
             return Ok(new { Message = "User role updated successfully" });
         }
+        [HttpPost("update-all-to-phar-except-admin")]
+        public async Task<IActionResult> UpdateAllUserRolesToPharExceptAdmin()
+        {
+            var users = _userManager.Users.ToList();
+            var updatedUsers = new List<string>();
+
+            foreach (var user in users)
+            {
+                var currentRoles = await _userManager.GetRolesAsync(user);
+
+                if (!currentRoles.Contains("Admin"))
+                {
+                    var removeResult = await _userManager.RemoveFromRolesAsync(user, currentRoles);
+                    if (!removeResult.Succeeded)
+                    {
+                        return BadRequest(new { Message = $"Failed to remove roles from user {user.UserName}", Errors = removeResult.Errors });
+                    }
+
+                    var addResult = await _userManager.AddToRoleAsync(user, "Phar");
+                    if (!addResult.Succeeded)
+                    {
+                        return BadRequest(new { Message = $"Failed to add user {user.UserName} to Phar role", Errors = addResult.Errors });
+                    }
+
+                    updatedUsers.Add(user.UserName);
+                }
+            }
+
+            return Ok(new { Message = "All non-admin user roles updated to Phar successfully", UpdatedUsers = updatedUsers });
+        }
+
     }
 }

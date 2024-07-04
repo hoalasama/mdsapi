@@ -22,6 +22,7 @@ namespace mdswebapi.Controllers
         {
             var cart = _context.Carts
                 .Include(c => c.CartDetails)
+                .ThenInclude(cd => cd.Med)
                 .FirstOrDefault(c => c.CustomerId == customerId);
 
             if (cart == null || !cart.CartDetails.Any())
@@ -29,30 +30,50 @@ namespace mdswebapi.Controllers
                 return BadRequest("Cart is empty or does not exist.");
             }
 
-            var order = new Order
-            {
-                CustomerId = customerId,
-                OrderPlacedAt = DateTime.Now,
-                OsId = 1
-            };
+            var groupedCartDetails = cart.CartDetails
+                .GroupBy(cd => cd.Med.PharId)
+                .ToList();
 
-            foreach (var cartDetail in cart.CartDetails)
+            var orders = new List<Order>();
+
+            foreach (var group in groupedCartDetails)
             {
-                var orderItem = new OrderItem
+                var orderItems = new List<OrderItem>();
+
+                foreach (var cartDetail in group)
                 {
-                    MedId = cartDetail.MedId,
-                    ItemQuantity = cartDetail.Quantity
+                    var medicine = cartDetail.Med;
+                    if (medicine.MedRemain < cartDetail.Quantity)
+                    {
+                        return BadRequest($"Not enough stock for medicine {medicine.MedName}. Available: {medicine.MedRemain}, Requested: {cartDetail.Quantity}");
+                    }
+
+                    medicine.MedRemain -= cartDetail.Quantity;
+
+                    var orderItem = new OrderItem
+                    {
+                        MedId = cartDetail.MedId,
+                        ItemQuantity = cartDetail.Quantity
+                    };
+                    orderItems.Add(orderItem);
+                }
+
+                var order = new Order
+                {
+                    CustomerId = customerId,
+                    OrderPlacedAt = DateTime.Now,
+                    OsId = 1,
+                    OrderItems = orderItems
                 };
 
-                order.OrderItems.Add(orderItem);
+                _context.Orders.Add(order);
+                orders.Add(order);
             }
-
-            _context.Orders.Add(order);
 
             _context.CartDetails.RemoveRange(cart.CartDetails);
             _context.SaveChanges();
 
-            return Ok(order);
+            return Ok(orders);
         }
 
         [HttpGet("vieworders/{customerId}")]
@@ -89,9 +110,49 @@ namespace mdswebapi.Controllers
 
             order.OsId = statusId;
 
+            if (statusId == 4)
+            {
+                order.OrderDeliveredAt = DateTime.Now;
+            }
+
             _context.SaveChanges();
 
             return Ok(order);
+        }
+        [HttpGet("viewpharmacyorders/{pharmacyId}")]
+        public IActionResult ViewPharmacyOrders(string pharmacyId)
+        {
+            var users = _context.Customers.Find(pharmacyId);
+            var pharid = users.PharmacyId;
+            var orders = _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Med)
+                .ThenInclude(m => m.Phar)
+                .Include(o => o.Os)
+                .Where(o => o.OrderItems.Any(oi => oi.Med.PharId == pharid))
+                .ToList();
+
+            if (!orders.Any())
+            {
+                return NotFound("No orders found for this pharmacy.");
+            }
+
+            var orderList = orders.Select(o => new
+            {
+                o.OrderId,
+                o.Os.OsDesc,
+                o.OrderPlacedAt,
+                o.OrderDeliveredAt,
+                TotalPrice = o.OrderItems.Sum(oi => oi.Med.MedPrice * oi.ItemQuantity),
+                Items = o.OrderItems.Select(oi => new
+                {
+                    oi.Med.MedName,
+                    oi.ItemQuantity,
+                    oi.Med.MedPrice
+                })
+            }).ToList();
+
+            return Ok(orderList);
         }
     }
 }

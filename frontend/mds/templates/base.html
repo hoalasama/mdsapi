@@ -13,7 +13,6 @@
         <div class="collapse navbar-collapse">
             <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_medicine' %}" style="margin-left: 500px;">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q">
-                <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
             </form>
             <ul class="navbar-nav ml-auto">
                 <!-- <li class="nav-item" style="margin-right: 300px;">
@@ -34,13 +33,17 @@
                     {% endif %}
                     {% if request.session.role == 'Admin' %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'manage_pharmacy' %}" style="color: white;">Manage Pharmacy</a>
+                            <a class="nav-link" href="{% url 'user_list' %}" style="color: white;">Manage Pharmacy</a>
                         </li>
                     {% endif %}
                     {% if request.session.role == 'Phar' %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'pharmacy_medicines' %}" style="color: white;">Manage Medicine</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'pharmacy_orders' %}" style="color: white;">Manage Order</a>
+                        </li>
+                        
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="#" style="color: white;">{{ request.session.username }}</a>

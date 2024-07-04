@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h2>Register</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'index' %}">Return</a>
-    </form>
+    <div class="auth-container">
+        <div class="auth-form">
+            <div class="auth-tabs">
+                <div class="auth-tab"><a href="{% url 'login' %}" id="signInTab">Sign In</a></div>
+                <div class="auth-tab" id="signUpTab">Sign Up</div>
+                <div class="auth-tab-indicator" id="tabIndicator"></div>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn">Register</button>
+            </form>
+            <a href="{% url 'index' %}" class="auth-link">Return</a>
+        </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

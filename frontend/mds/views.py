@@ -1,3 +1,4 @@
+import datetime as dt
 import itertools
 import json
 import requests
@@ -6,11 +7,11 @@ import os
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.contrib.auth import login as auth_login, logout as auth_logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import AddCartDetailForm, EditCartDetailForm, LoginForm, RegisterForm
+from .forms import AddCartDetailForm, EditCartDetailForm, LoginForm, RegisterForm, RoleUpdateForm
 
 API_URL = 'https://localhost:7079/api'
 EXPECTED_AUDIENCE = "http://localhost:7079"
@@ -104,7 +105,7 @@ def manage_pharmacy_view(request):
         headers = {'Authorization': f'Bearer {request.session["token"]}'}
         response = requests.post(f'{API_URL}/pharmacy/{user_id}', json=data, verify=False, headers=headers)
         if response.status_code == 201:
-            return JsonResponse(response.json())
+            return redirect('user_list')
         else:
             return JsonResponse({'error': 'Failed to create pharmacy', 'details': response.text}, status=response.status_code)
     else:
@@ -153,7 +154,7 @@ def manage_medicine_view(request):
         }, verify=False, headers=headers)
 
         if response.status_code in [200, 201]:
-            return redirect('manage_medicine')
+            return redirect('pharmacy_medicines')
         else:
             return JsonResponse({'error': 'Error saving medicine', 'details': response.json()}, status=response.status_code)
 
@@ -211,7 +212,7 @@ def get_cart_view(request):
         cart['total'] = total
         return render(request, 'cart.html', {'cart': cart})
     else:
-        return JsonResponse({'error': 'Failed to retrieve cart'}, status=response.status_code)
+        return render(request, 'cart.html')
 
 
 def edit_cart_item_view(request, cart_detail_id):
@@ -305,12 +306,16 @@ def medicine_detail_view(request, med_id):
             reviews = []
             customer_data = []
 
+        pharid = medicine['pharId']
+        phar = requests.get(f'{API_URL}/pharmacy/{pharid}', verify=False)
+        pharname = phar.json()
         #customer_id= reviews["customerId"]
         
         context = {
             'medicine': medicine,
             'reviews': reviews,
-            'customer_data': customer_data
+            'customer_data': customer_data,
+            'pharname': pharname
         }
         return render(request, 'medicine_detail.html', context)
 
@@ -367,15 +372,21 @@ def orders_view(request):
         orders = response.json()
 
         for order in orders:
+            order['orderPlacedAt'] = order['orderPlacedAt'][:-1]
+            order['orderPlacedAt'] = dt.datetime.strptime(order['orderPlacedAt'], '%Y-%m-%dT%H:%M:%S.%f')
+            if order['orderDeliveredAt'] :
+                order['orderDeliveredAt'] = order['orderDeliveredAt'][:-1]
+                order['orderDeliveredAt'] = dt.datetime.strptime(order['orderDeliveredAt'], '%Y-%m-%dT%H:%M:%S.%f')
             total_price = 0
             for item in order['orderItems']:
                 item_price = item['med']['medPrice'] * item['itemQuantity']
                 total_price += item_price
             order['totalPrice'] = total_price
 
-        return render(request, 'orders.html', {'orders': orders})
+        return render(request, 'orders.html', {'orders': orders})   
     else:
-        return JsonResponse({'error': 'Failed to retrieve orders'}, status=400)
+        # return JsonResponse({'error': 'Failed to retrieve orders'}, status=400)
+        return render(request, 'orders.html')   
 
 def place_order(request):
     token = request.session.get('token')
@@ -447,3 +458,68 @@ def edit_medicine_view(request, med_id):
     categories = categories_response.json() if categories_response.status_code == 200 else []
 
     return render(request, 'edit_medicine.html', {'medicine': medicine, 'categories': categories})
+
+@login_required
+def update_role_view(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('userId')
+        new_role = request.POST.get('newRole')
+
+        if not user_id or not new_role:
+            return HttpResponseBadRequest('Invalid data')
+
+        headers = {
+            'Authorization': f'Bearer {request.session["token"]}',
+            'Content-Type': 'application/json'
+        }
+        role_update_data = {
+            "userId": user_id,
+            "newRole": new_role
+        }
+        response = requests.post(f'{API_URL}/Role/update-role', json=role_update_data, headers=headers, verify=False)
+
+        if response.status_code == 200:
+            return redirect('user_list')
+        else:
+            return JsonResponse({'error': 'Failed to update user role', 'details': response.json()}, status=response.status_code)
+    else:
+        return HttpResponseBadRequest('Invalid request method')
+
+@login_required
+def user_list_view(request):
+    headers = {'Authorization': f'Bearer {request.session["token"]}'}
+    response = requests.get(f'{API_URL}/account', headers=headers, verify=False)
+
+    if response.status_code == 200:
+        users = response.json()
+    else:
+        users = []
+
+    return render(request, 'user_list.html', {'users': users})
+
+def pharmacy_orders_view(request):
+    pharmacy_id = request.session.get('user_id')
+    response = requests.get(f'{API_URL}/order/viewpharmacyorders/{pharmacy_id}', verify=False)
+
+    if response.status_code == 200:
+        orders = response.json()
+        for order in orders:
+            order['orderPlacedAt'] = order['orderPlacedAt'][:-1]
+            order['orderPlacedAt'] = dt.datetime.strptime(order['orderPlacedAt'], '%Y-%m-%dT%H:%M:%S.%f')
+            if order['orderDeliveredAt'] :
+                order['orderDeliveredAt'] = order['orderDeliveredAt'][:-1]
+                order['orderDeliveredAt'] = dt.datetime.strptime(order['orderDeliveredAt'], '%Y-%m-%dT%H:%M:%S.%f')
+        return render(request, 'pharmacy_orders.html', {'orders': orders})
+    else:
+        return render(request, 'pharmacy_orders.html', {'orders': []})
+
+def update_order_status(request, order_id, status_id):
+    if request.method == 'POST':
+        response = requests.put(f'{API_URL}/order/updateshippingstatus/{order_id}/{status_id}', verify=False)
+
+        if response.status_code == 200:
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Failed to update order status'}, status=400)
+
+    return HttpResponseForbidden("Invalid request method")

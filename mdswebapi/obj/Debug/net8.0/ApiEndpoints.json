@@ -201,6 +201,38 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "mdswebapi.Controllers.ChatController",
+    "Method": "CreateChat",
+    "RelativePath": "api/Chat/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "createChatDto",
+        "Type": "mdswebapi.Dtos.Chat.CreateChatDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.ChatController",
+    "Method": "GetChatsByUserId",
+    "RelativePath": "api/Chat/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "mdswebapi.Controllers.MedicineController",
     "Method": "GetAll",
     "RelativePath": "api/Medicine",
@@ -347,6 +379,22 @@
     "Parameters": [
       {
         "Name": "customerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.OrderController",
+    "Method": "ViewPharmacyOrders",
+    "RelativePath": "api/Order/viewpharmacyorders/{pharmacyId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pharmacyId",
         "Type": "System.String",
         "IsRequired": true
       }
@@ -556,6 +604,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "mdswebapi.Controllers.RoleManagementController",
+    "Method": "UpdateAllUserRolesToPharExceptAdmin",
+    "RelativePath": "api/Role/update-all-to-phar-except-admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

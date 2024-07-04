@@ -16,3 +16,16 @@ class AddCartDetailForm(forms.Form):
 class EditCartDetailForm(forms.Form):
     quantity = forms.IntegerField(label='Quantity')
 
+class RoleUpdateForm(forms.Form):
+    ROLE_CHOICES = [
+        ('Phar', 'Phar'),
+        ('User', 'User'),
+    ]
+
+    user_id = forms.ChoiceField(choices=[], label='User ID')
+    new_role = forms.ChoiceField(choices=ROLE_CHOICES, label='New Role')
+
+    def __init__(self, *args, **kwargs):
+        user_choices = kwargs.pop('user_choices', [])
+        super().__init__(*args, **kwargs)
+        self.fields['user_id'].choices = user_choices

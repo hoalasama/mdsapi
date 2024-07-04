@@ -51,19 +51,19 @@ namespace mdswebapi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "417effc9-307a-41e5-837e-8bd4afd44678",
+                            Id = "c137121d-9371-4bdf-a871-98c63cf5c53b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "d5195425-7e7c-4de3-b69d-a2d369e1dbb0",
+                            Id = "4bce6232-a59b-411d-970e-3e053ada513f",
                             Name = "Phar",
                             NormalizedName = "PHAR"
                         },
                         new
                         {
-                            Id = "5b3b4291-6de4-4b72-b112-d5cb09c5c055",
+                            Id = "67edc8dd-3cfa-49b5-93a3-d86651c8ec61",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -250,6 +250,35 @@ namespace mdswebapi.Migrations
                         .HasName("PK__categori__A88B4DC41691FD27");
 
                     b.ToTable("categories", (string)null);
+                });
+
+            modelBuilder.Entity("mdswebapi.Models.Chat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Chats");
                 });
 
             modelBuilder.Entity("mdswebapi.Models.Customer", b =>
@@ -681,6 +710,25 @@ namespace mdswebapi.Migrations
                     b.Navigation("Med");
                 });
 
+            modelBuilder.Entity("mdswebapi.Models.Chat", b =>
+                {
+                    b.HasOne("mdswebapi.Models.Customer", "Receiver")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("mdswebapi.Models.Customer", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("mdswebapi.Models.Customer", b =>
                 {
                     b.HasOne("mdswebapi.Models.Pharmacy", "Pharmacy")
@@ -774,7 +822,11 @@ namespace mdswebapi.Migrations
 
                     b.Navigation("Orders");
 
+                    b.Navigation("ReceivedMessages");
+
                     b.Navigation("Reviews");
+
+                    b.Navigation("SentMessages");
                 });
 
             modelBuilder.Entity("mdswebapi.Models.Medicine", b =>

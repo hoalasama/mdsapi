@@ -34,12 +34,13 @@ public partial class mdsDbContext : IdentityDbContext<Customer>
     public virtual DbSet<Promotion> Promotions { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
+    public virtual DbSet<Chat> Chats { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Server=LAPTOP-IGU4RUNK\\SQLEXPRESS;Database=mdsapi2;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        /*List<IdentityRole> roles = new List<IdentityRole>
+        List<IdentityRole> roles = new List<IdentityRole>
         {
             new IdentityRole
             {
@@ -57,7 +58,18 @@ public partial class mdsDbContext : IdentityDbContext<Customer>
                 NormalizedName = "USER",
             },
         };
-        modelBuilder.Entity<IdentityRole>().HasData(roles);*/
+        modelBuilder.Entity<IdentityRole>().HasData(roles);
+        modelBuilder.Entity<Chat>()
+                .HasOne(c => c.Sender)
+                .WithMany(c => c.SentMessages)
+                .HasForeignKey(c => c.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Chat>()
+            .HasOne(c => c.Receiver)
+            .WithMany(c => c.ReceivedMessages)
+            .HasForeignKey(c => c.ReceiverId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Cart>(entity =>
         {

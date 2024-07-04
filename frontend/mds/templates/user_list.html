@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">    
+    <h3 class="my-4">User List</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.userName }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <form method="post" action="{% url 'update_role' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="userId" value="{{ user.id }}">
+                        <select class="form-control user-role {% if 'Phar' in user.roles %}role-phar{% endif %}" name="newRole" onchange="this.form.submit()">
+                            <option value="Phar" {% if 'Phar' in user.roles %}selected{% endif %}>Phar</option>
+                            <option value="User" {% if 'User' in user.roles %}selected{% endif %}>User</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'manage_pharmacy' %}" class="btn btn-primary btn-md" role="button" style="margin-left: 20px; margin-bottom: 150px;">Add pharmacy</a>
+    <a href="{% url 'index' %}" class="btn btn-primary btn-md" role="button" style="margin-left: 20px; margin-bottom: 150px;">Return</a>
+    
+</div>
+<style>
+    .role-phar {
+        background-color: #3e84e9;
+        color: white;
+    }
+</style>
+{% endblock %}

@@ -26,6 +26,7 @@
         </div>
         <div class="col-md-6" style="margin-top: 20px;">
             <h2>{{ medicine.medName }}</h2>
+            <p>Pharmacy: {{pharname.pharName}}</p>
             <p>Price: <span class="text-danger">{{ medicine.medPrice|floatformat:"0"|intcomma }}đ / Box</span></p>
             <p>Remain: {{ medicine.medRemain }}</p>
             <p>Description: {{ medicine.medDesc }}</p>

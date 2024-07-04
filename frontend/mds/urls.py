@@ -21,5 +21,9 @@ urlpatterns = [
     path('place_order/', views.place_order, name='place_order'),
     path('pharmacy_medicines/', views.pharmacy_medicines_view, name='pharmacy_medicines'),
     path('edit_medicine/<int:med_id>/', views.edit_medicine_view, name='edit_medicine'),
+    path('update_role/', views.update_role_view, name='update_role'),
+    path('users/', views.user_list_view, name='user_list'),
+    path('pharmacy/orders/', views.pharmacy_orders_view, name='pharmacy_orders'),
+    path('pharmacy/orders/update_status/<int:order_id>/<int:status_id>/', views.update_order_status, name='update_order_status'),
 ]
 

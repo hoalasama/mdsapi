@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 {% block content %}
 <div class="container mt-5">
     <div class="row">
@@ -15,13 +16,13 @@
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
-                        <span class="me-3" style="margin-right: 20px;">{{ item.med.medPrice }}đ</span>
+                        <span class="me-3" style="margin-right: 20px;">{{ item.med.medPrice|floatformat:"0"|intcomma  }}đ</span>
                         <form method="post" action="{% url 'edit_cart_item' item.cdId %}"  style="margin-right: 20px;">
                             {% csrf_token %}
                             <div class="input-group">
                                 <input type="hidden" name="med_id" value="{{ item.med.medId }}">
                                 <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, -1)">-</button>
-                                <input type="text" class="form-control text-center" name="quantity" value="{{ item.quantity }}" style="width: 50px;">
+                                <input type="text" class="form-control text-center" name="quantity" value="{{ item.quantity }}" style="width: 70px;">
                                 <button type="button" class="btn btn-outline-secondary btn-sm" onclick="updateQuantity(this, 1)">+</button>
                             </div>
                         </form>
@@ -35,10 +36,10 @@
             <div class="card">
                 <div class="card-body">
                     <!-- <h5 class="card-title">Áp dụng ưu đãi để được giảm giá</h5> -->
-                    <p class="card-text">Tổng tiền: <span>{{ cart.total }}đ</span></p>
+                    <p class="card-text">Tổng tiền: <span>{{ cart.total|floatformat:"0"|intcomma  }}đ</span></p>
                     <p class="card-text">Giảm giá trực tiếp: <span>0đ</span></p>
                     <!-- <p class="card-text">Giảm giá voucher: <span>0đ</span></p> -->
-                    <h5 class="card-title">Thành tiền: <span>{{ cart.total }}đ</span></h5>
+                    <h5 class="card-title">Thành tiền: <span>{{ cart.total|floatformat:"0"|intcomma  }}đ</span></h5>
                     <form method="post" action="{% url 'place_order' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary btn-block">Mua hàng</button>
